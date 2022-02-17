@@ -1,2 +1,2 @@
 # apy-calculator
-APY and APR calculator dashboard
+Annual Percentage Yield (APY) and Annual Interest Rate (APR) calculator dashboard
