@@ -2,38 +2,68 @@ import numpy as np
 import pandas as pd 
 from datetime import datetime
 
-"""
-APY a.k.a. annual percentage yield, is the rate earned on an investment in a year, 
-taking into account the effects of compounding interest. APY is calculated by: 
-APY= (1 + r/n)**n – 1, 
-where “r” is the stated annual interest rate and “n” is the number of compounding 
-periods each year.    
-"""
 
-initial_investment = 100 
-r = 5/100  # 5 [%] annual interest rate
-n = 4 # quartely number of compounding periods each year
-APY = (1+r/n)**n -1
-
-asset_APY = initial_investment + initial_investment*APY
-asset_APR = initial_investment + initial_investment*r
-
-print(f"APY = {round(APY*100,3)} %")
-print(f"Asset with APY = {round(asset_APY, 3)} $")
-print(f"Asset with APR = {round(asset_APR, 3)} $")
-
-
-
-date_list = pd.date_range(start=datetime.today(), 
-                         freq="M",
-                         periods=12).tolist()
-
-
-asset_list = [initial_investment]
-
-for i in range(len(date_list)-1):
-    print(f"i = {i} | date = {date_list[i]}")
-    asset_list.append(asset_list[i] + asset_list[i]*APY)
+def asset_over_time_apy(P:int, r:float, n:int, t:float) -> pd.DataFrame:
+    """
+    Compute the ending value of some investment after a certain amount of time with compound interest. 
     
+    Parameters
+    ---------
+    P: int
+        Initial investment
+    r: float
+        Annual Interest Rate
+    n: int
+        Number of compounding periods per year
+    t: int
+        Number of years
 
-df_asset = pd.DataFrame(data=asset_list, index=date_list, columns=['Asset (APY)']).round(2)
+    Returns
+    ---------
+    amount: pd.DataFrame
+        Final amount
+
+    Examples
+    ---------
+
+    >>> # Suppose we invest $5,000 into an investment that compounds at 6% annually.
+    >>> # Calculate the ending value of this investment after 10 years:
+    >>> P, r, n, t = 5000, .06, 1, 10
+    >>> df = asset_over_time_apy(P=5000, r=.06, n=1, t=10)
+    >>> # Expected df[-1] = 8954.238483
+           
+    """
+
+    df = pd.DataFrame(data={'time': np.linspace(start=1, stop=t, num=t)})
+    df['value']= df.applymap(lambda t: P*(pow((1+r/n), n*t)))
+
+    return df
+
+"""
+https://www.statology.org/compound-interest-in-python/
+Example 1: Compound Interest Formula with ANNUAL Compounding
+Suppose we invest $5,000 into an investment that compounds at 6% annually.
+Calculate the ending value of this investment after 10 years:
+"""
+
+df = asset_over_time_apy(P=5000, r=.06, n=1, t=10)
+print(df)
+# Expected df[-1] = 8954.238483
+
+"""
+Example 2: Compound Interest Formula with MONTHLY Compounding
+Suppose we invest $1,000 into an investment that compounds at 6% annually 
+and is compounded on a monthly basis (12 times per year).
+Calculate the ending value of this investment after 5 years:
+"""
+
+df = asset_over_time_apy(P=1000, r=.06, n=12, t=2)
+print(df)
+
+#if __name__ == "__main__":  
+#    """
+#    Run for testing only and store example
+#    """
+
+
+
