@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd 
-from datetime import datetime
 
 
 def asset_over_time_apy(P:int, r:float, n:int, t:float) -> pd.DataFrame:
@@ -39,31 +38,31 @@ def asset_over_time_apy(P:int, r:float, n:int, t:float) -> pd.DataFrame:
 
     return df
 
-"""
-https://www.statology.org/compound-interest-in-python/
-Example 1: Compound Interest Formula with ANNUAL Compounding
-Suppose we invest $5,000 into an investment that compounds at 6% annually.
-Calculate the ending value of this investment after 10 years:
-"""
-
-df = asset_over_time_apy(P=5000, r=.06, n=1, t=10)
-print(df)
-# Expected df[-1] = 8954.238483
-
-"""
-Example 2: Compound Interest Formula with MONTHLY Compounding
-Suppose we invest $1,000 into an investment that compounds at 6% annually 
-and is compounded on a monthly basis (12 times per year).
-Calculate the ending value of this investment after 5 years:
-"""
-
-df = asset_over_time_apy(P=1000, r=.06, n=12, t=2)
-print(df)
-
-#if __name__ == "__main__":  
-#    """
-#    Run for testing only and store example
-#    """
 
 
 
+if __name__ == "__main__":  
+   """
+   Run for testing only and store example
+   """
+
+   """
+   https://www.statology.org/compound-interest-in-python/
+   Example 1: Compound Interest Formula with ANNUAL Compounding
+   Suppose we invest $5,000 into an investment that compounds at 6% annually.
+   Calculate the ending value of this investment after 10 years:
+   """
+
+   df = asset_over_time_apy(P=5000, r=.06, n=1, t=10)
+   print(df)
+   # Expected df[-1] = 8954.238483
+
+   """
+   Example 2: Compound Interest Formula with MONTHLY Compounding
+   Suppose we invest $1,000 into an investment that compounds at 6% annually 
+   and is compounded on a monthly basis (12 times per year).
+   Calculate the ending value of this investment after 5 years:
+   """
+
+   df = asset_over_time_apy(P=1000, r=.06, n=12, t=2)
+   print(df)
