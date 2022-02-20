@@ -8,32 +8,57 @@ from scr.logic import asset_over_time_apy
 
 app = Dash(__name__)
 
+colors = {
+    'background': '#111111',
+    'text': '#7FDBFF'
+}
 
-app.layout = html.Div([
-    html.Div(children=[
-        html.H1('Annual Interest Yiled Calculator'),
+app.layout = html.Div(
+    children=[
+        html.Div(children=[
+        html.H1('Annual Interest Yiled Calculator', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        } ),
         
         html.Br(),
-        html.Label('Initial Investment P'),
+        html.Label('Initial Investment [P]', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        } ),
+        
         dcc.Input(id='initial-investment', value=1000, type="number"),
         
         html.Br(),
-        html.Label('Annual Interest Rate [r]'),
+        html.Label('Annual Interest Rate [r]', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }),
+        
+        
         dcc.Input(id='annual-interest-rate', value=.05, type="number"),
         
         html.Br(),
-        html.Label('Number of compounding periods per year [n]'),
+        html.Label('Number of compounding periods per year [n]', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }),
+        
         dcc.Input(id= 'compounding-periods-per-year', value=12, type="number"),
         
         html.Br(),
-        html.Label('Number of years [t]'),
+        html.Label('Number of years [t]', style={
+            'textAlign': 'center',
+            'color': colors['text']
+        }),
+        
         dcc.Input(id='number-of-years', value=10, type="number"),
         
         dcc.Graph(id='asset-apy-over-time'),
     
-    ], style={'padding': 10, 'flex': 1}),
+    ], style={'padding': 10, 'flex': 1, 'backgroundColor': colors['background']}),
 
-], style={'display': 'flex', 'flex-direction': 'row'})
+], style={'display': 'flex', 'flex-direction': 'row', 'backgroundColor': colors['background'] })
 
 
 @app.callback(
